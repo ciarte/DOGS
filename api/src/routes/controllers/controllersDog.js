@@ -4,12 +4,25 @@ const { getDbInfo, getApiInfo } = require("./controllersCalls");
 
 const getAllInfo = async () => {
   let values = Promise.all([getDbInfo(), getApiInfo()]);
-  return (await values).flat();
+  return (await values).flat().sort((a, b) => a.name - b.name);
 };
+
+function compare_lname(a, b) {
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+}
 
 const getDogList = async (req, res, next) => {
   const breed = req.query.name;
   let allBreeds = await getAllInfo();
+  allBreeds.sort(compare_lname);
+  console.log(allBreeds[0]);
+
   try {
     if (breed) {
       let breedName = allBreeds.filter((dog) =>
@@ -43,6 +56,7 @@ const getBreed = async (req, res, next) => {
   }
 };
 
+//POST adding dog
 const addDog = async ({
   name,
   minHeight,
@@ -77,7 +91,7 @@ const addDog = async ({
   return newDog;
 };
 
-const postDogs = async (req, res, next) => {
+const postDogs = async (req, res) => {
   const { name, minHeight, maxHeight, minWeight, maxWeight, temnperaments } =
     req.body;
   if (!name || !minHeight || !maxHeight || !minWeight || !maxWeight) {
@@ -88,7 +102,7 @@ const postDogs = async (req, res, next) => {
     if (founded.data) {
       res.send("the dog already exist");
     }
-  } catch (dog) {
+  } catch (createDog) {
     const response = await addDog(req.body);
     res.status(200).send(response);
   }

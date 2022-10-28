@@ -54,23 +54,7 @@ const getTemperament = async () => {
     return apiTemp;
   });
 };
-// "171007f5-2c8b-42a1-97be-15e7fd2f782d",
-// "Perro1"
-// "Watchful"
 
-//Exist Name?
-// const foundDog = async (requestDog) => {
-//   const founded = await axios.get(
-//     `http://localhost:3001/dogs?name=${requestDog}`
-//   );
-//   console.log(founded);
-//   // const breed = await allBreeds.find(
-//   //   (b) => b.name.toLowerCase() === requestDog.toLowerCase()
-//   // );
-//   if (founded) {
-//     return "the dog already exist";
-//   }
-// };
 module.exports = {
   getApiInfo,
   getDbInfo,
