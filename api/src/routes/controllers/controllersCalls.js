@@ -5,31 +5,26 @@ const { MY_URL } = process.env;
 
 //All info from API
 const getApiInfo = async () => {
-  try {
-    const { data } = await axios.get(MY_URL);
-    return await data.map((dog) => {
-      let temperamento = dog.temperament ? dog.temperament.split(", ") : "";
-      let [minHeight, maxHeight] = dog.height.metric.split(" - ");
-      let [minWeight, maxWeight] = dog.weight.metric.split(" - ");
+  const { data } = await axios.get(MY_URL);
+  return await data.map((dog) => {
+    let temperamento = dog.temperament ? dog.temperament.split(", ") : "";
+    let [minHeight, maxHeight] = dog.height.metric.split(" - ");
+    let [minWeight, maxWeight] = dog.weight.metric.split(" - ");
 
-      apiInfo = {
-        id: dog.id,
-        name: dog.name,
-        minHeight: Number(minHeight),
-        maxHeight: Number(maxHeight),
-        minWeight: Number(minWeight),
-        maxWeight: Number(maxWeight),
-        life_span: Number(dog.life_span.split(" - ")[0]),
-        breed_group: dog.breed_group,
-        origin: dog.origin,
-        temperament: temperamento,
-        img: dog.image.url,
-      };
-      return apiInfo;
-    });
-  } catch (error) {
-    next(error);
-  }
+    apiInfo = {
+      id: dog.id,
+      name: dog.name,
+      minHeight: Number(minHeight),
+      maxHeight: Number(maxHeight),
+      minWeight: Number(minWeight),
+      maxWeight: Number(maxWeight),
+      life_span: Number(dog.life_span.split(" - ")[0]),
+      breed_group: dog.breed_group,
+      temperament: temperamento,
+      image: dog.image.url,
+    };
+    return apiInfo;
+  });
 };
 //All info from DB
 const getDbInfo = async () => {
@@ -41,17 +36,38 @@ const getDbInfo = async () => {
       },
     },
   });
-  return dogs;
+  if (dogs.length) {
+    const dbData = await dogs.map((d) => {
+      const tempArray = d.temperaments.map((t) => t.name);
+      field = d.dataValues;
+      dataDogs = {
+        id: field.id,
+        name: field.name,
+        minHeight: field.minHeight,
+        maxHeight: field.maxHeight,
+        minWeight: field.minWeight,
+        maxWeight: field.maxWeight,
+        life_span: field.life_span,
+        breed_group: field.breed_group,
+        temperament: tempArray,
+        image: field.image,
+      };
+      console.log(dataDogs);
+      return dataDogs;
+    });
+    console.log(dbData)
+    return dbData;
+  } else {
+    return [];
+  }
+  // return dogs;
 };
 //All info from API-Temperaments
 const getTemperament = async () => {
   const { data } = await axios.get(MY_URL);
   return await data.map((dog) => {
     let temperamentos = dog.temperament ? dog.temperament.split(", ") : [];
-    apiTemp = {
-      temperamentos,
-    };
-    return apiTemp;
+    return temperamentos;
   });
 };
 
@@ -59,5 +75,4 @@ module.exports = {
   getApiInfo,
   getDbInfo,
   getTemperament,
-  // foundDog,
 };

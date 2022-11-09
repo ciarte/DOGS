@@ -1,21 +1,18 @@
-const { Dog, Temperament } = require("../../db");
+const { Temperament } = require("../../db");
 const { getTemperament } = require("./controllersCalls");
 
 const getTemperamentList = async (req, res, next) => {
   let allTemperament = await getTemperament();
-  let arrayProp = allTemperament.map((e) =>
-    Object.keys(e).map((key) => e[key])
-  );
-  let arrayString = arrayProp.flat(Infinity);
+  let arrayString = allTemperament.flat();
   let todos = [...new Set(arrayString)].sort();
-  const bulk = todos.map((t, i) => {
-    return { name: t };
+  todos.map(async (t) => {
+    await Temperament.findOrCreate({
+      where: { name: t },
+    });
   });
-  const temperInDb = await Temperament.bulkCreate(bulk);
-  res.send(temperInDb);
+  res.json(await Temperament.findAll());
 };
 
 module.exports = {
   getTemperamentList,
 };
-// "Watchful", "Wild"

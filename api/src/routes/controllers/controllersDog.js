@@ -4,7 +4,7 @@ const { getDbInfo, getApiInfo } = require("./controllersCalls");
 
 const getAllInfo = async () => {
   let values = Promise.all([getDbInfo(), getApiInfo()]);
-  return (await values).flat().sort((a, b) => a.name - b.name);
+  return (await values).flat()
 };
 
 function compare_lname(a, b) {
@@ -21,7 +21,6 @@ const getDogList = async (req, res, next) => {
   const breed = req.query.name;
   let allBreeds = await getAllInfo();
   allBreeds.sort(compare_lname);
-  console.log(allBreeds[0]);
 
   try {
     if (breed) {
@@ -47,7 +46,7 @@ const getBreed = async (req, res, next) => {
       (b) => b.id.toString() === idRaza.toString()
     );
     if (breed) {
-      res.send(breed);
+      res.json(breed);
     } else {
       res.status(404).send("Wrong ID, check it and try again");
     }
@@ -65,8 +64,8 @@ const addDog = async ({
   maxWeight,
   life_span,
   breed_group,
-  img,
-  temperaments,
+  image,
+  temperament,
 }) => {
   name = name.charAt(0).toUpperCase() + name.slice(1);
   const newDog = await Dog.create({
@@ -77,22 +76,24 @@ const addDog = async ({
     maxWeight,
     life_span,
     breed_group,
-    img,
+    image,
   });
-  temperaments.length
-    ? temperaments.map(async (t) => {
-        const tempName = await Temperament.findOne({
-          attributes: ["id"],
-          where: { name: t },
-        });
-        await newDog.addTemperaments(tempName);
-      })
-    : [];
+  if (temperament) {
+    temperament.map(async (t) => {
+      const tempName = await Temperament.findOne({
+        attributes: ["id"],
+        where: { name: t },
+      });
+      await newDog.addTemperaments(tempName);
+    });
+  } else {
+    temperament = [];
+  }
   return newDog;
 };
 
 const postDogs = async (req, res) => {
-  const { name, minHeight, maxHeight, minWeight, maxWeight, temnperaments } =
+  const { name, minHeight, maxHeight, minWeight, maxWeight, temnperament } =
     req.body;
   if (!name || !minHeight || !maxHeight || !minWeight || !maxWeight) {
     res.status(400).send("Complete all required fields");
@@ -104,7 +105,7 @@ const postDogs = async (req, res) => {
     }
   } catch (createDog) {
     const response = await addDog(req.body);
-    res.status(200).send(response);
+    res.status(200).json(response);
   }
 };
 module.exports = {
