@@ -14,12 +14,16 @@ export default function ByTemperament({ setCurrentPage }) {
   return (
     <>
       <select onChange={(e) => handlefilterDog(e)}>
-        <option value="all">All</option>
+        <option key="0" value="all">
+          All
+        </option>
         {temperamentsDB &&
           temperamentsDB.map((t) => {
             return (
               <>
-                <option value={t.name}>{t.name}</option>
+                <option key={t.name} value={t.name}>
+                  {t.name}
+                </option>
               </>
             );
           })}

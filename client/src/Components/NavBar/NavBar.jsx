@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import ByPlace from "../Filters/ByPlace";
 import ByTemperament from "../Filters/ByTemperamen";
 import ByAlfabet from "../Filters/ByAlfabet";
-// import SearchBar from "../SearchBar/SearchBar";
+import ByName from "../Filters/ByName";
+
 export default function NavBar({ setCurrentPage, setOrder }) {
   return (
     <nav>
@@ -17,6 +18,7 @@ export default function NavBar({ setCurrentPage, setOrder }) {
         <ByTemperament setCurrentPage={setCurrentPage} />
         <ByPlace setCurrentPage={setCurrentPage} />
         <ByAlfabet setCurrentPage={setCurrentPage} setOrder={setOrder} />
+        <ByName setCurrentPage={setCurrentPage} />
       </ul>
     </nav>
   );

@@ -45,38 +45,36 @@ export function getDetails(id) {
   };
 }
 export function filterTemps(payload) {
-  console.log(payload);
-  return{
+  return {
     type: FILTER_DOG,
     payload,
   };
 }
 export function filterCreated(payload) {
-  console.log(payload);
-  return{
+  return {
     type: FILTER_DOG_CREATED,
     payload,
   };
 }
 export function filterAtoZ(payload) {
-  console.log(payload);
-  return{
+  return {
     type: FILTER_ALFABETIC,
     payload,
   };
 }
 export function filterByName(payload) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/dogs?name=${payload}`);
-    console.log(json.data)
-    return dispatch({
-      type: BY_NAME,
-      payload: json.data,
-    });
+    try {
+      let json = await axios.get(`http://localhost:3001/dogs?name=${payload}`);
+      return dispatch({
+        type: BY_NAME,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 }
-
-
 
 // export function clearDetail(){
 //   return{

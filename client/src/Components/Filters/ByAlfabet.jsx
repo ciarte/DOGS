@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAtoZ } from "../../Redux/Actions";
 
-export default function ByAlfabet({ setCurrentPage, setOrder }) {
+export default function ByAlfabet({ setCurrentPage, setOrder}) {
   const dispatch = useDispatch();
 
   function handleByAlfabetic(e) {

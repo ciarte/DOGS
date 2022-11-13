@@ -1,57 +1,33 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { filterByName } from "../../Redux/Actions/index.js";
 
-
-export default function ByName(props){
+export default function ByName({ setCurrentPage }) {
   const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  
-function findMatch(props) {
-  return cities.filter(place => {
-    const regex =new RegExp (citySearch,'gi');
-    return place.city.match(regex) || place.state.match(regex)
-  })
-}
+  const [name, setName] = useState("");
+
+  function handleFindMatch(e) {
+    setName(e.target.value);
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(filterByName(name));
+    setCurrentPage(1);
+    setName("")
+  }
   return (
     <>
-    <form class="search-form">
-    <input type="text" class="search" placeholder="City or State"/>
-    <ul class="suggestions">
-      <li>Filter for a Dog</li>
-      <li>or origin</li>
-    </ul>
-  </form>
+      <form>
+        <input
+        value={name}
+          type="text"
+          placeholder="Dog or Origin...."
+          onChange={(e) => handleFindMatch(e)}
+        />
+        <button type="submit" onClick={(e) => handleSubmit(e)}>
+          Buscar
+        </button>
+      </form>
     </>
-  )
-  }
-
-
-  
-// function findMatch(citySearch, cities) {
-//   return cities.filter(place => {
-//     const regex =new RegExp (citySearch,'gi');
-//     return place.city.match(regex) || place.state.match(regex)
-//   })
-// }
-// function displayMatch(){
-// const match = findMatch(this.value,cities)
-// const html = match.map( place => {
-//   const regex = new RegExp(this.value, 'gi');
-//   console.log(place)
-//   const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
-//   const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
-//     return `
-//   <li>
-//   <span class='name'>${cityName}, ${stateName}</span>
-//   </li>
-//   `;
-// }).join('');
-// suggestions.innerHTML = html;
-// }
-
-// const searchInput = document.querySelector('.search');
-// const suggestions = document.querySelector('.suggestions');
-
-// searchInput.addEventListener('change',displayMatch)
-// searchInput.addEventListener('keyup',displayMatch)
+  );
+}

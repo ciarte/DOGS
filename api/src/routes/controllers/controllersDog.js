@@ -4,7 +4,7 @@ const { getDbInfo, getApiInfo } = require("./controllersCalls");
 
 const getAllInfo = async () => {
   let values = Promise.all([getDbInfo(), getApiInfo()]);
-  return (await values).flat()
+  return (await values).flat();
 };
 
 function compare_lname(a, b) {
@@ -51,7 +51,7 @@ const getBreed = async (req, res, next) => {
       res.status(404).send("Wrong ID, check it and try again");
     }
   } catch (error) {
-    res.status(400).send("Wrong ID, check it and try again");
+    next(error);
   }
 };
 
@@ -67,7 +67,7 @@ const addDog = async ({
   image,
   temperament,
 }) => {
-  name = name.charAt(0).toUpperCase() + name.slice(1);
+  name = (name.charAt(0).toUpperCase() + name.slice(1)).trim();
   const newDog = await Dog.create({
     name,
     minHeight,
@@ -93,19 +93,24 @@ const addDog = async ({
 };
 
 const postDogs = async (req, res) => {
-  const { name, minHeight, maxHeight, minWeight, maxWeight, temnperament } =
-    req.body;
+  const {
+    name,
+    minHeight,
+    maxHeight,
+    minWeight,
+    maxWeight,
+    life_span,
+    breed_group,
+    temnperament,
+  } = req.body;
   if (!name || !minHeight || !maxHeight || !minWeight || !maxWeight) {
     res.status(400).send("Complete all required fields");
   }
   try {
-    const founded = await axios.get(`http://localhost:3001/dogs?name=${name}`);
-    if (founded.data) {
-      res.send("the dog already exist");
-    }
-  } catch (createDog) {
     const response = await addDog(req.body);
     res.status(200).json(response);
+  } catch (error) {
+    res.status(400).json({ message: "Name already exist", error });
   }
 };
 module.exports = {
