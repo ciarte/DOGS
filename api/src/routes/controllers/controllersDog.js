@@ -2,11 +2,6 @@ const { Dog, Temperament } = require("../../db");
 const axios = require("axios");
 const { getDbInfo, getApiInfo } = require("./controllersCalls");
 
-const getAllInfo = async () => {
-  let values = Promise.all([getDbInfo(), getApiInfo()]);
-  return (await values).flat();
-};
-
 function compare_lname(a, b) {
   if (a.name < b.name) {
     return -1;
@@ -16,12 +11,15 @@ function compare_lname(a, b) {
   }
   return 0;
 }
+const getAllInfo = async () => {
+  let values = Promise.all([getDbInfo(), getApiInfo()]);
+  return (await values).flat().sort(compare_lname);
+};
 
 const getDogList = async (req, res, next) => {
   const breed = req.query.name;
   let allBreeds = await getAllInfo();
   allBreeds.sort(compare_lname);
-
   try {
     if (breed) {
       let breedName = allBreeds.filter((dog) =>
@@ -54,6 +52,7 @@ const getBreed = async (req, res, next) => {
     next(error);
   }
 };
+
 
 //POST adding dog
 const addDog = async ({
@@ -113,8 +112,11 @@ const postDogs = async (req, res) => {
     res.status(400).json({ message: "Name already exist", error });
   }
 };
+
+
 module.exports = {
   getDogList,
   getBreed,
   postDogs,
+  getAllInfo
 };

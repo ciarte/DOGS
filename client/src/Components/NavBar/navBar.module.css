@@ -1,0 +1,60 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  align-content: center;
+  justify-content: flex-start;
+}
+
+.wrapper {
+  width: 90%;
+  margin: auto;
+}
+
+nav a {
+  display: flex;
+  color: #cfc9c8;
+  text-decoration: none;
+  padding: 15px 30px;
+  font-size: 20px;
+  font-weight: bold;
+  -webkit-transition: all 100ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+nav a:hover {
+  background-color: #f56f3a;
+  border-radius: 50px;
+}
+.select {
+  position: relative;
+  border: 2px solid #ccc;
+  width: 120px;
+  overflow: hidden;
+  background-color: #fff;
+}
+  
+.select:before {
+    content: '';
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 5px 0 5px;
+    border-color: #000000 transparent transparent transparent;
+    z-index: 5;
+    pointer-events: none;
+}
+  
+.select select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    appearance: none;
+} 

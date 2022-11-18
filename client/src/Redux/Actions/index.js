@@ -9,6 +9,8 @@ export const FILTER_DOG = "FILTER_DOG";
 export const FILTER_DOG_CREATED = "FILTER_DOG_CREATED";
 export const FILTER_ALFABETIC = "FILTER_ALFABETIC";
 export const BY_NAME = "BY_NAME";
+export const BY_WEIGHT= "BY_WEIGHT";
+export const GET_TEMP_ORIGIN= "GET_TEMP_ORIGIN";
 
 export function getDogs() {
   return async function (dispatch) {
@@ -30,9 +32,21 @@ export function getTemperaments() {
 }
 export function createDogs(payload) {
   return async function (dispatch) {
-    let newDog = await axios.post("http://localhost:3001/dogs/", payload);
-    console.log(newDog);
-    return newDog;
+    try {
+      let { data: newDog } = await axios.post(
+        "http://localhost:3001/dogs/",
+        payload
+      );
+      return newDog;
+    } catch (error) {
+      const message = error.response
+        ? error.response.data
+          ? `The name "${payload.name}" already exists!`
+          : error.response.data
+        : error.message;
+      console.log(message);
+      return message;
+    }
   };
 }
 export function getDetails(id) {
@@ -44,12 +58,29 @@ export function getDetails(id) {
     });
   };
 }
+export function filterTempsPlace(payload){
+  return async function (dispatch) {
+    let json = await axios.get(`http://localhost:3001/temperaments/search?temperament=${payload.temp}&place=${payload.origin}`);
+    return dispatch({
+      type: GET_TEMP_ORIGIN,
+      payload: json.data,
+    });
+  };
+}
+
 export function filterTemps(payload) {
   return {
     type: FILTER_DOG,
     payload,
   };
 }
+export function filterWeight(payload) {
+  return {
+    type: BY_WEIGHT,
+    payload,
+  };
+}
+
 export function filterCreated(payload) {
   return {
     type: FILTER_DOG_CREATED,
@@ -75,20 +106,3 @@ export function filterByName(payload) {
     }
   };
 }
-
-// export function clearDetail(){
-//   return{
-//     type: CLEAR_DETAIL,
-//   }
-// }
-
-// export function filterDogs(name) {
-//   return async function (dispatch) {
-//     let json = await axios.get(`http://localhost:3001/dogs?name=${name}`);
-//     console.log(json.data)
-//     return dispatch({
-//       type: FILTER_DOG,
-//       payload: json.data,
-//     });
-//   };
-// }

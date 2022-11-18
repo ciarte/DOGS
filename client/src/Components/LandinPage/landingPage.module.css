@@ -1,0 +1,49 @@
+body{
+  background-image: url('../../img/16ec5f8aaf9785fb039af3eb74678142_large.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 52em;
+}
+.landing{
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  margin-top: 30em;
+}
+.links{
+  text-decoration: none;
+  color:chocolate
+}
+.landingBoton {
+  justify-content: flex-start;
+  margin-left: 20em;
+  text-decoration-line: none;
+  width: 9em;
+  height: 3em;
+  border-radius: 30em;
+  font-size: 15px;
+  font-family: inherit;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 6px 6px 12px #c5c5c5,
+              -6px -6px 12px #ffffff;
+ }
+ 
+ .landingBoton::before {
+  content: '';
+  width: 0;
+  height: 3em;
+  border-radius: 30em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
+  transition: .5s ease;
+  display: block;
+  z-index: -1;
+ }
+ 
+ .landingBoton:hover::before {
+  width: 9em;
+ }

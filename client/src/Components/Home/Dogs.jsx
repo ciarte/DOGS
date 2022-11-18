@@ -8,22 +8,21 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../Pages/index.jsx";
 import NavBar from "../NavBar/NavBar";
-// import ByTemperamen from '../Filters/ByTemperamen'
+import s from './Dogs.module.css'
 
 export function Dogs() {
   const dispatch = useDispatch();
-  const allDogs = useSelector((state) => state.dogs);
+  const allDogs = useSelector((state) => state.dogsE);
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(8);
   const lastDogInPage = currentPage * pageSize;
   const firstDogInPage = lastDogInPage - pageSize;
-  const currentDogs = allDogs.slice(firstDogInPage, lastDogInPage);
+  const currentDogs =allDogs.slice(firstDogInPage, lastDogInPage);
   const nPage = Math.ceil(allDogs.length / pageSize);
   const [order, setOrder] = useState("");
-
-
+ 
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getTemperaments());
@@ -31,28 +30,36 @@ export function Dogs() {
   }, [dispatch]);
 
   return (
-    <div>
-      <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder} />
+    <>
+      <header>
+        <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder}  />
+      </header>
       <Pagination
         nPage={nPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
-      <ul>
-        {currentDogs &&
-          currentDogs.map((d) => (
-            <li key={d.id}>
-              <DogsList
-                id={d.id}
-                name={d.name}
-                image={d.image}
-                breed_group={d.breed_group}
-                origin={d.origin}
-                temperament={d.temperament}
-              />
-            </li>
-          ))}
-      </ul>
-    </div>
+      {currentDogs.length?
+       <div> {currentDogs.map((d) => (
+          <div className={s.cards}>
+            <DogsList
+              id={d.id}
+              name={d.name}
+              image={d.image}
+              breed_group={d.breed_group}
+              origin={d.origin}
+              minWeight={d.minWeight}
+              maxWeight={d.maxWeight}
+              temperament={d.temperament}
+            />
+          </div>))}
+          </div>: <h1>NoSE encontsoh</h1>
+        }
+      <Pagination
+        nPage={nPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
+    </>
   );
 }

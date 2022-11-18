@@ -19,7 +19,7 @@ export default function Pagination({ nPage, currentPage, setCurrentPage }) {
         </li>
 
         <li key={currentPage}>
-          <a onClick={() => setCurrentPage(currentPage)}>
+          <a onClick={() => setCurrentPage(currentPage)} >
             <h2>
               {currentPage} / {nPage}
             </h2>

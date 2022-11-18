@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import s from './landingPage.module.css';
 export default function LandingPage() {
   return (
-    <>
-      <div>PAGINADO</div>
-      <button> <Link to='/home'> HOME</Link></button>
-    </>
+    <div className={s.landing}>
+      <button className={s.landingBoton}> 
+        <Link to='/home' className={s.links}>DOG ME</Link></button>
+    </div>
   );
 }

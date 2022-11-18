@@ -3,64 +3,59 @@ import { getTemperaments, getDogs, filterByName } from "../../Redux/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createDogs } from "../../Redux/Actions";
+import axios from "axios";
+
+// const { data } = await axios.get("http://localhost:3001/dogs");
+// console.log(newDog);
+// console.log(data);
+// ;
+// return dispatch(getDogs(data))
 
 export function validate(input) {
-  let error = {};
-  let alturaMax = 1 * (document.querySelector("#maxHeight").max)
-  let alturaMin = 1 * (document.querySelector("#minHeight").max);
-  let pesoMax = 1 * (document.querySelector("#maxWeight").max);
-  let pesoMin = 1 * (document.querySelector("#minWeight").max);
+  let isError = {};
+  let alturaMax = 1 * document.querySelector("#maxHeight").max;
+  let alturaMin = 1 * document.querySelector("#minHeight").max;
+  let pesoMax = 1 * document.querySelector("#maxWeight").max;
+  let pesoMin = 1 * document.querySelector("#minWeight").max;
+  console.log(document.querySelector("#name").value);
 
   if (!input.name) {
-    error.name = "Dog name is required";
-  } 
-  else if (filterByName(input.name)){
-    console.log
-    error.name = "Dog name already exist";
-  }else if (
+    isError.name = "Dog name is required";
+  } else if (
     /(?=(\u007B-\u00BF]|[\u0021-\u0040]|[\u005B-\u0060]))/.test(input.name)
   ) {
-    error.name = "Dog name is invalid";
-  } //ALTURA ERROR
+    isError.name = "Dog name is invalid";
+  }
+  //ALTURA ERROR
   if (!input.minHeight) {
-    error.minHeight = "Necesita un altura minima";
-  } else if ((1*input.minHeight) > alturaMin) {
-    error.minHeight = "altura minima debe ser menor a 69";
-  } else if ((1*input.minHeight) >(1*input.maxHeight)) {
-    error.minHeight = "altura maxima debe ser mayor a la altura minima";
-  } else if ((1*input.maxHeight) > alturaMax) {
-    error.minHeight = `altura maxima permitida es ${
+    isError.minHeight = "Necesita un altura minima";
+  } else if ( input.minHeight > alturaMin) {
+    isError.minHeight = "altura minima debe ser menor a 69";
+  } else if (input.minHeight > 1 * input.maxHeight) {
+    isError.minHeight = "altura maxima debe ser mayor a la altura minima";
+  } else if (input.maxHeight > alturaMax) {
+    isError.minHeight = `altura maxima permitida es ${
       document.querySelector("#maxHeight").max
     } cm`;
   }
-  console.table(
-    ['altura min '+document.querySelector("#minHeight").value,
-    'altura max '+document.querySelector("#maxHeight").value,]
-  );
   //PESO ERROR
   if (!input.minWeight) {
-    error.minWeight = "Necesita un peso minimo";
-  } else if ((1*input.minWeight) > pesoMin) {
-    error.minWeight = "peso minimo debe ser menor a 99";
-  } else if ((1*input.minWeight) > input.maxWeight) {
-    error.minWeight = "peso maximo debe ser mayor al peso minimo";
-  } else if ((1*input.maxWeight) > pesoMax) {
-    error.minWeight = `peso maximo permitido es ${
+    isError.minWeight = "Necesita un peso minimo";
+  } else if (1 * input.minWeight > pesoMin) {
+    isError.minWeight = "peso minimo debe ser menor a 99";
+  } else if (1 * input.minWeight > input.maxWeight) {
+    isError.minWeight = "peso maximo debe ser mayor al peso minimo";
+  } else if (1 * input.maxWeight > pesoMax) {
+    isError.minWeight = `peso maximo permitido es ${
       document.querySelector("#maxWeight").max
     }Kg`;
   }
-  console.table(
-    ['peso min '+document.querySelector("#minWeight").value,
-    'peso max '+document.querySelector("#maxWeight").value,])
-  return error;
+  return isError;
 }
 
 export default function DogsCreate() {
   const dispatch = useDispatch();
   const temperamentsDB = useSelector((state) => state.temperaments);
-  const searchName = useSelector((state)=> state.dogsNames);
-  console.log(searchName);
-  console.log(temperamentsDB);
   let [input, setInput] = useState({
     name: "",
     minHeight: 1,
@@ -73,27 +68,26 @@ export default function DogsCreate() {
     img: "",
     temperament: [],
   });
-  const [error, setError] = useState({});
+  const [isError, setIsError] = useState({});
 
   function handleOnChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-    setError(
+    setIsError(
       validate({
         ...input,
         [e.target.name]: e.target.value,
       })
     );
   }
-
   function handleSelect(e) {
     setInput({
       ...input,
       temperament: [...input.temperament, e.target.value],
     });
-    setError(
+    setIsError(
       validate({
         ...input,
         [e.target.name]: e.target.value,
@@ -111,7 +105,7 @@ export default function DogsCreate() {
       ...input,
       origin: e.target.value,
     });
-    setError(
+    setIsError(
       validate({
         ...input,
         [e.target.name]: e.target.value,
@@ -120,9 +114,8 @@ export default function DogsCreate() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    setError({ ...input, [e.target.name]: e.target.value });
+    // setError({ ...input, [e.target.name]: e.target.value });
     dispatch(createDogs(input));
-    alert("personaje creado");
     setInput({
       name: "",
       minHeight: 1,
@@ -151,14 +144,15 @@ export default function DogsCreate() {
         <div>
           <label>Name*</label>
           <input
+            id="name"
             type={"text"}
             value={input.name}
             name={"name"}
             placeholder={"Enter a name"}
             onChange={(e) => handleOnChange(e)}
           />
-          <p style={{ visibility: error.name ? "visible" : "hidden" }}>
-            {error.name}
+          <p style={{ visibility: isError.name ? "visible" : "hidden" }}>
+            {isError.name}
           </p>
           <label>Origen</label>
           <select
@@ -491,7 +485,7 @@ export default function DogsCreate() {
             name={"minHeight"}
             onChange={(e) => handleOnChange(e)}
           />
-              <h5>Max</h5>
+          <h5>Max</h5>
           <input
             id="maxHeight"
             type={"number"}
@@ -501,11 +495,11 @@ export default function DogsCreate() {
             name={"maxHeight"}
             onChange={(e) => handleOnChange(e)}
           />
-          <p style={{ visibility: error.minHeight ? "visible" : "hidden" }}>
-            {error.minHeight}
+          <p style={{ visibility: isError.minHeight ? "visible" : "hidden" }}>
+            {isError.minHeight}
           </p>
-          </div>
-          <div>
+        </div>
+        <div>
           <br />
           <label>Weight*</label>
           <br />
@@ -519,7 +513,7 @@ export default function DogsCreate() {
             name={"minWeight"}
             onChange={(e) => handleOnChange(e)}
           />
-           <h5>Max</h5>
+          <h5>Max</h5>
           <input
             id="maxWeight"
             type={"number"}
@@ -529,8 +523,8 @@ export default function DogsCreate() {
             name={"maxWeight"}
             onChange={(e) => handleOnChange(e)}
           />
-          <p style={{ visibility: error.minWeight ? "visible" : "hidden" }}>
-          {error.minWeight}
+          <p style={{ visibility: isError.minWeight ? "visible" : "hidden" }}>
+            {isError.minWeight}
           </p>
           <br />
           <label>Life Span</label>
@@ -581,7 +575,7 @@ export default function DogsCreate() {
           ))}
         </div>
         <button
-          disabled={!input.name || Object.keys(error).length > 0}
+          disabled={!input.name || Object.keys(isError).length > 0}
           onSubmit={handleSubmit}
         >
           Enviar

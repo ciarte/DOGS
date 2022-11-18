@@ -14,6 +14,7 @@ const getApiInfo = async () => {
     apiInfo = {
       id: dog.id,
       name: dog.name,
+      origin: dog.origin,
       minHeight: Number(minHeight),
       maxHeight: Number(maxHeight),
       minWeight: Number(minWeight),
@@ -43,6 +44,7 @@ const getDbInfo = async () => {
       dataDogs = {
         id: field.id,
         name: field.name,
+        origin: field.origin,
         minHeight: field.minHeight,
         maxHeight: field.maxHeight,
         minWeight: field.minWeight,
@@ -51,16 +53,14 @@ const getDbInfo = async () => {
         breed_group: field.breed_group,
         temperament: tempArray,
         image: field.image,
+        createDB: field.createDB
       };
-      console.log(dataDogs);
       return dataDogs;
     });
-    console.log(dbData)
     return dbData;
   } else {
     return [];
   }
-  // return dogs;
 };
 //All info from API-Temperaments
 const getTemperament = async () => {
@@ -70,7 +70,6 @@ const getTemperament = async () => {
     return temperamentos;
   });
 };
-
 module.exports = {
   getApiInfo,
   getDbInfo,

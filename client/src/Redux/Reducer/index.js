@@ -3,18 +3,19 @@ import {
   GET_TEMPERAMENTS,
   CREATE_DOG,
   DOG_DETAIL,
-  FILTER_DOG,
+  // FILTER_DOG,
   BY_NAME,
-  FILTER_DOG_CREATED,
+  // FILTER_DOG_CREATED,
   FILTER_ALFABETIC,
+  BY_WEIGHT,
+  GET_TEMP_ORIGIN,
 } from "../Actions";
 
 const initialState = {
   dogs: [],
   details: {},
-  dogsNames: [],
   temperaments: [],
-
+  dogsE:[]
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -22,8 +23,8 @@ export default function rootReducer(state = initialState, action) {
     case GET_DOGS:
       return {
         ...state,
-        dogs: action.payload,
-        dogsNames: action.payload,
+        dogs: action.payload,     
+        dogsE: action.payload
       };
     case GET_TEMPERAMENTS:
       return {
@@ -39,33 +40,53 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         details: action.payload,
       };
-    case FILTER_DOG:
-      const allDogs = state.dogsNames;
-      const statusFilter =
-        action.payload === "all"
-          ? allDogs
-          : allDogs.filter((e) => e.temperament.includes(action.payload));
+    case GET_TEMP_ORIGIN:
       return {
         ...state,
-        dogs: statusFilter,
+        dogsE: action.payload,
       };
-    case FILTER_DOG_CREATED:
-      const Dogs = state.dogs;
-      const created =
-        action.payload === "created"
-          ? Dogs.filter((e) => e.id.toString().length > 5)
-          : Dogs.filter((e) => e.id.toString().length < 5);
-      return {
-        ...state,
-        dogs: action.payload === "all" ? Dogs: created,
-      };
+    // case FILTER_DOG:
+    //   const allDogs = state.dogsNames;
+    //   const statusFilter =
+    //     action.payload === "all"
+    //       ? allDogs
+    //       : allDogs.filter((e) => e.temperament.includes(action.payload));
+    //   return {
+    //     ...state,
+    //     dogs: statusFilter,
+    //   };
+    // case FILTER_DOG_CREATED:
+    //   const Dogs = state.dogs;
+    //   const created =
+    //     action.payload === "created"
+    //       ? Dogs.filter((e) => e.id.toString().length > 5)
+    //       : Dogs.filter((e) => e.id.toString().length < 5);
+    //   return {
+    //     ...state,
+    //     dogs: action.payload === "all" ? Dogs : created,
+    //   };
     case FILTER_ALFABETIC:
-      const DogsAZ = state.dogs;
+      const DogsAZ = state.dogsE;
       const AtoZ = DogsAZ.reverse();
       console.log(AtoZ);
       return {
         ...state,
-        dogs: action.payload === "Asc" ? DogsAZ : AtoZ,
+        dogsE: action.payload === "Asc" ? DogsAZ : AtoZ,
+      };
+    case BY_WEIGHT:
+      const DogsWeight = state.dogsE;
+      const byWeight =
+        action.payload === "Asc"
+          ? DogsWeight.sort(function (a, b) {
+              return a.minWeight - b.minWeight;
+            })
+          : DogsWeight.sort(function (a, b) {
+              return b.maxWeight - a.maxWeight;
+            });
+            console.log(byWeight)
+      return {
+        ...state,
+        dogsE: byWeight,
       };
     case BY_NAME:
       return {

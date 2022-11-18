@@ -16,7 +16,8 @@ export default function ByName({ setCurrentPage }) {
     setName("")
   }
   return (
-    <>
+    <div><button type="submit" onClick={(e) => handleSubmit(e)}>Search by Name
+        </button>
       <form>
         <input
         value={name}
@@ -24,10 +25,8 @@ export default function ByName({ setCurrentPage }) {
           placeholder="Dog or Origin...."
           onChange={(e) => handleFindMatch(e)}
         />
-        <button type="submit" onClick={(e) => handleSubmit(e)}>
-          Buscar
-        </button>
+        
       </form>
-    </>
+    </div>
   );
 }

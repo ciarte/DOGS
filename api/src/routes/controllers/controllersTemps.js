@@ -1,18 +1,20 @@
-const { Temperament } = require("../../db");
-const { getTemperament } = require("./controllersCalls");
-
-const getTemperamentList = async (req, res, next) => {
-  let allTemperament = await getTemperament();
-  let arrayString = allTemperament.flat();
-  let todos = [...new Set(arrayString)].sort();
-  todos.map(async (t) => {
-    await Temperament.findOrCreate({
-      where: { name: t },
-    });
-  });
-  res.json(await Temperament.findAll());
+const filtradoTe = async (temp, raza) => {
+  if(temp ==='all'){
+    return raza
+  }else 
+  return raza.filter((dog) => dog.temperament.includes(temp));
 };
 
+const filtradoPlace = async (place, any) => {
+  if (place === "api") {
+    return any.filter((e) => !e.createDB);
+  }
+  if (place === "created") {
+    return any.filter((e) => e.createDB);
+  }
+  if (place === "all") return any;
+};
 module.exports = {
-  getTemperamentList,
+  filtradoTe,
+  filtradoPlace,
 };

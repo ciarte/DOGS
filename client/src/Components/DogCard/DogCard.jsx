@@ -8,7 +8,7 @@ export function DogCard(props) {
         <label><h2>Nombre: {props.name}</h2></label>
         <h2>Breed: {props.breed_group}</h2>
         <h2>Origen: </h2>
-        {props.origin ? <h4>props.origin</h4> : <h4>Unknow</h4>}
+        {props.origin ? <h4>{props.origin}</h4> : <h4>Unknow</h4>}
         <img src={props.image} alt={props.image} weight="120" height="120" />
         <h3>
           Weigth: {props.minWeight} / {props.maxWeight}
