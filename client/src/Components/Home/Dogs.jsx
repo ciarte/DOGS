@@ -13,7 +13,7 @@ import s from './Dogs.module.css'
 export function Dogs() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogsE);
-
+ 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(8);
@@ -22,26 +22,29 @@ export function Dogs() {
   const currentDogs =allDogs.slice(firstDogInPage, lastDogInPage);
   const nPage = Math.ceil(allDogs.length / pageSize);
   const [order, setOrder] = useState("");
- 
+  const [maxPageLimit, setMaxPageLimit] = useState(25);
+  const [minPageLimit, setMinPageLimit] = useState(0);
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getTemperaments());
-    dispatch(filterAtoZ());
+    // dispatch(filterAtoZ());
   }, [dispatch]);
 
   return (
-    <>
+    <div style={{backgroundColor:'#f9c74f'}}>
       <header>
         <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder}  />
-      </header>
+      </header>    
+      <div className={s.background}>
       <Pagination
         nPage={nPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
       {currentDogs.length?
-       <div> {currentDogs.map((d) => (
-          <div className={s.cards}>
+       <div className={s.container}> 
+       {currentDogs.map((d) => (
+          <div >
             <DogsList
               id={d.id}
               name={d.name}
@@ -54,12 +57,17 @@ export function Dogs() {
             />
           </div>))}
           </div>: <h1>NoSE encontsoh</h1>
-        }
-      <Pagination
-        nPage={nPage}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-      />
-    </>
+        }</div>
+ <Pagination
+      nPage={nPage}
+      setCurrentPage={setCurrentPage}
+      currentPage={currentPage}
+      setMinPageLimit={setMinPageLimit}
+      minPageLimit={minPageLimit}
+      setMaxPageLimit={setMaxPageLimit}
+      maxPageLimit={maxPageLimit}
+      setOrder={setOrder}
+    /></div>
+
   );
 }

@@ -1,10 +1,9 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { filterWeight } from "../../Redux/Actions";
 import s from "../NavBar/navBar.module.css";
 
 export default function ByWeight({ setCurrentPage, setOrder }) {
-  const allDogs = useSelector((state) => state.dogsE);
   const dispatch = useDispatch();
 
   function handlefilterWeight(e) {

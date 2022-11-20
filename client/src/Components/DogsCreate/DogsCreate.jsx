@@ -3,7 +3,7 @@ import { getTemperaments, getDogs, filterByName } from "../../Redux/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createDogs } from "../../Redux/Actions";
-import axios from "axios";
+// import axios from "axios";
 
 // const { data } = await axios.get("http://localhost:3001/dogs");
 // console.log(newDog);
@@ -29,7 +29,7 @@ export function validate(input) {
   //ALTURA ERROR
   if (!input.minHeight) {
     isError.minHeight = "Necesita un altura minima";
-  } else if ( input.minHeight > alturaMin) {
+  } else if (input.minHeight > alturaMin) {
     isError.minHeight = "altura minima debe ser menor a 69";
   } else if (input.minHeight > 1 * input.maxHeight) {
     isError.minHeight = "altura maxima debe ser mayor a la altura minima";
@@ -65,7 +65,7 @@ export default function DogsCreate() {
     life_span: 0,
     breed_group: "",
     origin: "",
-    img: "",
+    image: "",
     temperament: [],
   });
   const [isError, setIsError] = useState({});
@@ -474,6 +474,16 @@ export default function DogsCreate() {
         <div>
           <label>Height*</label>
           <br />
+          <h5>Max</h5>
+          <input
+            id="maxHeight"
+            type={"number"}
+            min={input.minHeight}
+            max={70}
+            value={input.maxHeight}
+            name={"maxHeight"}
+            onChange={(e) => handleOnChange(e)}
+          />
           <h5>MIN</h5>
           <input
             id="minHeight"
@@ -485,16 +495,6 @@ export default function DogsCreate() {
             name={"minHeight"}
             onChange={(e) => handleOnChange(e)}
           />
-          <h5>Max</h5>
-          <input
-            id="maxHeight"
-            type={"number"}
-            min={input.minHeight}
-            max={70}
-            value={input.maxHeight}
-            name={"maxHeight"}
-            onChange={(e) => handleOnChange(e)}
-          />
           <p style={{ visibility: isError.minHeight ? "visible" : "hidden" }}>
             {isError.minHeight}
           </p>
@@ -503,16 +503,7 @@ export default function DogsCreate() {
           <br />
           <label>Weight*</label>
           <br />
-          <h5>Min</h5>
-          <input
-            id="minWeight"
-            type={"number"}
-            min={1}
-            max={99}
-            value={input.minWeight}
-            name={"minWeight"}
-            onChange={(e) => handleOnChange(e)}
-          />
+
           <h5>Max</h5>
           <input
             id="maxWeight"
@@ -521,6 +512,16 @@ export default function DogsCreate() {
             min={input.minWeight}
             max={101}
             name={"maxWeight"}
+            onChange={(e) => handleOnChange(e)}
+          />
+          <h5>Min</h5>
+          <input
+            id="minWeight"
+            type={"number"}
+            min={1}
+            max={99}
+            value={input.minWeight}
+            name={"minWeight"}
             onChange={(e) => handleOnChange(e)}
           />
           <p style={{ visibility: isError.minWeight ? "visible" : "hidden" }}>
@@ -549,10 +550,9 @@ export default function DogsCreate() {
           <label>Imagen</label>
           <br />
           <input
-            type={"file"}
-            accept={"image/*"}
+            type={"URL"}
             value={input.img}
-            name={"img"}
+            name={"image"}
             onChange={(e) => handleOnChange(e)}
           />
           <br />

@@ -101,6 +101,7 @@ const postDogs = async (req, res) => {
     life_span,
     breed_group,
     temnperament,
+    image,
   } = req.body;
   if (!name || !minHeight || !maxHeight || !minWeight || !maxWeight) {
     res.status(400).send("Complete all required fields");

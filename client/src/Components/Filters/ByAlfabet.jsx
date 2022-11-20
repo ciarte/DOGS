@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch} from "react-redux";
 import { filterAtoZ } from "../../Redux/Actions";
 import s from "../NavBar/navBar.module.css";
 
@@ -10,7 +10,6 @@ export default function ByAlfabet({ setCurrentPage, setOrder }) {
     dispatch(filterAtoZ(e.target.value));
     setCurrentPage(1);
     setOrder(e.target.value);
-    // console.log(e.target.value);
   }
   return (
     <div>

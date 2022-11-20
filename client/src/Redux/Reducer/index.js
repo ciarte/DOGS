@@ -13,7 +13,7 @@ import {
 
 const initialState = {
   dogs: [],
-  details: {},
+  details: [],
   temperaments: [],
   dogsE:[]
 };
@@ -23,7 +23,7 @@ export default function rootReducer(state = initialState, action) {
     case GET_DOGS:
       return {
         ...state,
-        dogs: action.payload,     
+        // dogs: action.payload,     
         dogsE: action.payload
       };
     case GET_TEMPERAMENTS:
@@ -44,6 +44,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         dogsE: action.payload,
+        dogs: action.payload,
       };
     // case FILTER_DOG:
     //   const allDogs = state.dogsNames;
@@ -66,12 +67,21 @@ export default function rootReducer(state = initialState, action) {
     //     dogs: action.payload === "all" ? Dogs : created,
     //   };
     case FILTER_ALFABETIC:
+      const compare = function compare_lname(a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      }
       const DogsAZ = state.dogsE;
-      const AtoZ = DogsAZ.reverse();
+      const AtoZ = DogsAZ.sort(compare);
       console.log(AtoZ);
       return {
         ...state,
-        dogsE: action.payload === "Asc" ? DogsAZ : AtoZ,
+        dogsE: action.payload === "Asc" ? AtoZ : AtoZ.reverse(),
       };
     case BY_WEIGHT:
       const DogsWeight = state.dogsE;
@@ -91,6 +101,7 @@ export default function rootReducer(state = initialState, action) {
     case BY_NAME:
       return {
         ...state,
+        dogsE: action.payload,
         dogs: action.payload,
       };
     default:

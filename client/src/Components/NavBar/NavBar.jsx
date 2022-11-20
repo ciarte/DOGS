@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-// import ByPlace from "../Filters/ByPlace";
-// import ByTemperament from "../Filters/ByTemperamen";
 import ByAlfabet from "../Filters/ByAlfabet";
 import ByName from "../Filters/ByName";
 import ByWeight from "../Filters/ByWeight";
 import s from "../NavBar/navBar.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { filterTemps,filterTempsPlace } from "../../Redux/Actions";
-export default function NavBar({ setCurrentPage, setOrder, setFilterTC }) {
+import { filterTempsPlace } from "../../Redux/Actions";
+
+
+export default function NavBar({ setCurrentPage, setOrder }) {
   const dispatch = useDispatch();
   const temperamentsDB = useSelector((state) => state.temperaments);
   const [input, setInput] = useState({
@@ -36,17 +36,14 @@ export default function NavBar({ setCurrentPage, setOrder, setFilterTC }) {
     dispatch(filterTempsPlace({...input,origin: e.target.value}));
     setCurrentPage(1);
   }
-  // function handleActiveSearch(e){
-  //   dispatch(filterTempsPlace(input));
-  // }
   return (
     <nav className={s.wrapper}>
-      <a>
+      <>
         <NavLink to={"/home"}>Home</NavLink>
-      </a>
-      <a>
+      </>
+      <>
         <NavLink to={"/createDogs"}>CreateDogs</NavLink>
-      </a>
+      </>
       <a>
         <div>
           Temperament
@@ -78,7 +75,7 @@ export default function NavBar({ setCurrentPage, setOrder, setFilterTC }) {
           <div className={s.select}>
             <select  name={"origin"} onChange={(e) => handleSelectOrigen(e)}>
             <option disabled selected>
-              Select temperaments
+              Select tempe...
             </option>
               <option value="all">All</option>
               <option value="created">Created</option>

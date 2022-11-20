@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getDetails } from "../../Redux/Actions/index";
 import { DogCard } from "../DogCard/DogCard";
-
+import s from "../NavBar/navBar.module.css";
 export function DogDetail(props) {
   const idDog = props.match.params.id;
 
@@ -16,10 +16,11 @@ export function DogDetail(props) {
 
   return (
     <div>
+        <nav className={s.wrapper}>
+          <a href="http://localhost:3000/home" style={{height:'56px'}}>BACK</a>
+        </nav>
       {dogDetail ? (
-        <div>
-          <h2>DogsDetails</h2>
-          <h3>
+        <>
             <DogCard
               id={dogDetail.id}
               name={dogDetail.name}
@@ -33,8 +34,7 @@ export function DogDetail(props) {
               origin={dogDetail.origin}
               temperament={dogDetail.temperament}
             />
-          </h3>
-        </div>
+        </>
       ) : (
         <div>h</div>
       )}
