@@ -1,69 +1,70 @@
+.box {
+  display: inline-block;
+  text-align: center;
+  width: 800px;
+}
 .background {
   display: grid;
-  justify-content:end;
-  background-color: #d6ccc2;
+  justify-content: end;
   width: 700px;
-  height: 700px;
+  height: 645px;
   position: absolute;
   top: 1;
   left: 0;
   bottom: 0;
   right: 0;
   margin: auto;
-  border-radius: 35px;
-  border: 4px outset #e8eddf;
-
 }
-
 .title {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
-  margin: 25px;
-  font-size: 50px;
-  color: #2d6a4f;
-  text-shadow: 2px 3px 1px #e8eddf;
+  font-weight: 450;
+  color: #22333b;
+  font-size: 30px;
+  text-shadow: 1px 1px 3px #5e503f;
 }
 .subtitle {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
-  margin: 25px;
-  font-size: 40px;
-  color: #2d6a4f;
-  text-shadow: 2px 3px 1px #e8eddf;
+  font-weight: 400;
+  padding: 0%;
+  color: #22333b;
+  font-size: 25px;
+  text-shadow: 2px 1px 1px #5e503f;
+}
+.imgContainer {
+  height: 300px;
+  width: 200px;
+  border-radius: 0px 0px 20px 20px;
+  display: inline-block;
 }
 
-.image {
-  display: flex;
-  width: 400px;
-  height:400px;
+.imgContainer img {
+  height: 350px;
+  margin: 0px 30px 0px -80px;
+}
+.innerSkew {
+  display: inline-block;
   border-radius: 20px;
-  border: 5px outset #2d6a4f;
-  justify-content: center;
-  align-items: center;
-  margin: 20em 25em 5em;
-  z-index: 5;
-  position: absolute;
+  overflow: hidden;
+  padding: 0px;
+  font-size: 0px;
+  margin: -15px 0px 0px -75px;
+  background: #c8ccbd;
+  height: 350px;
+  width: 320px;
 }
-.imgs{
-  width: 100%;
-  height: 100%;
+.textContainer {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  padding: 120px 20px 20px 20px;
   border-radius: 20px;
-  border: 5px outset #2d6a4f;
+  background: #fff;
+  margin: -120px 0px 0px 0px;
+  line-height: 19px;
+  font-size: 14px;
 }
-.info{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  margin: 25px;
-  font-size: 40px;
-  color: #2d6a4f;
-  text-shadow: 2px 3px 1px #e8eddf;
-}
-h4{
-  color: black;
+.textContainer h3 {
+  margin: 20px 0px 10px 0px;
 }

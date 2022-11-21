@@ -48,9 +48,7 @@ export function Dogs() {
             <DogsList
               id={d.id}
               name={d.name}
-              image={d.image}
-              breed_group={d.breed_group}
-              origin={d.origin}
+              image={d.image}              
               minWeight={d.minWeight}
               maxWeight={d.maxWeight}
               temperament={d.temperament}

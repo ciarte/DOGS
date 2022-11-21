@@ -5,7 +5,13 @@ nav {
   align-content: center;
   justify-content: flex-start;
 }
+.back {
+  background-image: url("../../img/pop_culter_dog_rank_alyceatinoyan_feature.jpg");
+  background-size: 100% 52em;
+  margin-top: 95px;
+  background-repeat: no-repeat;
 
+}
 .wrapper {
   width: 100%;
   position: fixed;

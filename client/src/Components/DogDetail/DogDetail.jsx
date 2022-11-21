@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getDetails } from "../../Redux/Actions/index";
+import { getDetails } from "../../Redux/Actions/index";
 import { DogCard } from "../DogCard/DogCard";
 import s from "../NavBar/navBar.module.css";
+import { NavLink } from "react-router-dom";
 export function DogDetail(props) {
   const idDog = props.match.params.id;
 
@@ -15,12 +16,27 @@ export function DogDetail(props) {
   }, [dispatch, idDog]);
 
   return (
-    <div>
-        <nav className={s.wrapper}>
-          <a href="http://localhost:3000/home" style={{height:'56px'}}>BACK</a>
-        </nav>
-      {dogDetail ? (
-        <>
+    <div className={s.back}>
+      <nav className={s.wrapper}>
+        <NavLink style={{ height: "56px", marginTop: "20px" }} to={"/home"}>
+          BACK
+        </NavLink>
+        <NavLink
+          style={{ height: "56px", marginTop: "20px" }}
+          to={"/createDogs"}
+        >
+          GO TO CREATE DOG
+        </NavLink>
+      </nav>
+      <div
+        style={{
+          backgroundRepeat: "no-repeat",
+          width: "0px",
+          height: "48.5em",
+        }}
+      >
+        {dogDetail ? (
+          <div>
             <DogCard
               id={dogDetail.id}
               name={dogDetail.name}
@@ -34,10 +50,11 @@ export function DogDetail(props) {
               origin={dogDetail.origin}
               temperament={dogDetail.temperament}
             />
-        </>
-      ) : (
-        <div>h</div>
-      )}
+          </div>
+        ) : (
+          <div>h</div>
+        )}
+      </div>
     </div>
   );
 }

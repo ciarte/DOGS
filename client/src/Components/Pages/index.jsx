@@ -7,7 +7,6 @@ export default function Pagination({ nPage,setOrder, currentPage, setCurrentPage
   }
   const pageNumberLimit = nPage;
   // const [loading, setLoading] = useState(true);
- 
 
   const nexPage = () => {
     if (currentPage < nPage) {
@@ -18,12 +17,6 @@ export default function Pagination({ nPage,setOrder, currentPage, setCurrentPage
       setCurrentPage(currentPage + 1);
     }
   };
-  // const nexPage = () => {
-  //   if (currentPage !== nPage) {
-  //     console.log(currentPage, nPage);
-  //     setCurrentPage(currentPage + 1);
-  //   }
-  // };
   const prevPage = () => {
     if (currentPage > pages[0]) {
       if ((currentPage - 1) % pageNumberLimit === 0) {
@@ -33,10 +26,7 @@ export default function Pagination({ nPage,setOrder, currentPage, setCurrentPage
       setCurrentPage(currentPage - 1);
     }
   };
-  // const prevPage = () => {
-  //   if (currentPage !== 1) setCurrentPage(currentPage - 1);
-  // };
-  
+
 // page ellipses TODO
 let pageIncrementEllipses = null;
 if(pages.length > maxPageLimit){
