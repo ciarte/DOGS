@@ -53,7 +53,7 @@ const getDbInfo = async () => {
         breed_group: field.breed_group,
         temperament: tempArray,
         image: field.image,
-        createDB: field.createDB
+        createDB: field.createDB,
       };
       return dataDogs;
     });
@@ -62,7 +62,7 @@ const getDbInfo = async () => {
     return [];
   }
 };
-//All info from API-Temperaments
+//All info from API-Temperament
 const getTemperament = async () => {
   const { data } = await axios.get(MY_URL);
   return await data.map((dog) => {
