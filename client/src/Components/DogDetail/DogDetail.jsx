@@ -2,19 +2,19 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetails } from "../../Redux/Actions/index";
 import { DogCard } from "../DogCard/DogCard";
-import s from "../NavBar/navBar.module.css";
 import { NavLink } from "react-router-dom";
+import s from "../NavBar/navBar.module.css";
+import Loading from "../LoadingPage/Loading";
+
 export function DogDetail(props) {
   const idDog = props.match.params.id;
 
   const dispatch = useDispatch();
   const dogDetail = useSelector((state) => state.details);
   console.log(dogDetail);
-
   React.useEffect(() => {
-    dispatch(getDetails(idDog));
+    dispatch(getDetails(idDog))
   }, [dispatch, idDog]);
-
   return (
     <div className={s.back}>
       <nav className={s.wrapper}>
@@ -52,7 +52,7 @@ export function DogDetail(props) {
             />
           </div>
         ) : (
-          <div>h</div>
+          <Loading />
         )}
       </div>
     </div>

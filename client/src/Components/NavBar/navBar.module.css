@@ -3,14 +3,19 @@ nav {
   flex-direction: row;
   align-items: flex-end;
   align-content: center;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .back {
   background-image: url("../../img/pop_culter_dog_rank_alyceatinoyan_feature.jpg");
   background-size: 100% 52em;
-  margin-top: 95px;
+  margin-top: 100px;
   background-repeat: no-repeat;
-
+}
+.backCreate{
+  background-image: url("../../img/pop_culter_dog_rank_alyceatinoyan_feature.jpg");
+  background-size: 100% 52em;
+  margin-top: 100px;
+  background-repeat: no-repeat;
 }
 .wrapper {
   width: 100%;
@@ -19,7 +24,7 @@ nav {
   z-index: 5;
   top: 0;
   background-color: #14213d;
-  box-shadow: 9px 8px 3px 3px rgb(0 0 1)
+  box-shadow: 9px 8px 3px 3px rgb(0 0 1);
 }
 
 nav a {
@@ -40,32 +45,33 @@ nav a:hover {
 }
 .select {
   position: relative;
-  border: 2px solid #ccc;
+  border: 5px solid #ccc;
   width: 120px;
   overflow: hidden;
   background-color: #fff;
+  margin-left: 30px;
 }
-  
+
 .select:before {
-    content: '';
-    position: absolute;
-    right: 5px;
-    top: 7px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 7px 5px 0 5px;
-    border-color: #14213d transparent transparent transparent;
-    z-index: 5;
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  right: 5px;
+  top: 7px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 5px 0 5px;
+  border-color: #14213d transparent transparent transparent;
+  z-index: 5;
+  pointer-events: none;
 }
-  
+
 .select select {
-    padding: 5px 8px;
-    width: 130%;
-    border: none;
-    box-shadow: none;
-    background-color: transparent;
-    background-image: none;
-    appearance: none;
-} 
+  padding: 15px 8px;
+  width: 130%;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: none;
+  appearance: none;
+}

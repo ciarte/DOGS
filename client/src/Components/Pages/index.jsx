@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import s from "../Pages/pages.module.css";
-export default function Pagination({ nPage,setOrder, currentPage, setCurrentPage,setMaxPageLimit, setMinPageLimit,maxPageLimit,minPageLimit }) {
+export default function Pagination({ nPage,currentPage, setCurrentPage,setMaxPageLimit, setMinPageLimit,maxPageLimit,minPageLimit }) {
   const pages = [];
   for (let i = 1; i <= nPage; i++) {
     pages.push(i);

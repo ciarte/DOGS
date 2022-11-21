@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getTemperaments, getDogs, filterByName } from "../../Redux/Actions";
+import { getTemperaments, getDogs} from "../../Redux/Actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { createDogs } from "../../Redux/Actions";
-// import axios from "axios";
-
-// const { data } = await axios.get("http://localhost:3001/dogs");
-// console.log(newDog);
-// console.log(data);
-// ;
-// return dispatch(getDogs(data))
+import { NavLink } from "react-router-dom";
+import s from "../NavBar/navBar.module.css";
+import st from "../DogCard/DogCard.module.css";
 
 export function validate(input) {
   let isError = {};
@@ -53,7 +48,7 @@ export function validate(input) {
   return isError;
 }
 
-export default function DogsCreate() {
+export  function DogsCreate() {
   const dispatch = useDispatch();
   const temperamentsDB = useSelector((state) => state.temperaments);
   let [input, setInput] = useState({
@@ -99,36 +94,38 @@ export default function DogsCreate() {
       ...input,
       temperament: input.temperament.filter((temp) => temp !== e),
     });
+    console.log( e.target.value);
   }
   function handleSelectOrigen(e) {
     setInput({
       ...input,
-      origin: e.target.value,
-    });
-    setIsError(
-      validate({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
-  }
-  function handleSubmit(e) {
-    e.preventDefault();
-    // setError({ ...input, [e.target.name]: e.target.value });
-    dispatch(createDogs(input));
-    setInput({
-      name: "",
-      minHeight: 1,
-      maxHeight: 1,
-      minWeight: 1,
-      maxWeight: 1,
-      life_span: 0,
-      breed_group: "",
-      origin: "",
-      img: "",
-      temperament: [],
-    });
-  }
+      [e.target.name]: e.target.value,
+    })
+    console.log( e.target.value);
+    // setIsError(
+      //   validate({
+        //     ...input,
+        //     [e.target.name]: e.target.value,
+        //   })
+        // );
+      }
+      function handleSubmit(e) {
+        e.preventDefault();
+        // setError({ ...input, [e.target.name]: e.target.value });
+        dispatch(createDogs(input));
+        setInput({
+          name: "",
+          minHeight: 1,
+          maxHeight: 1,
+          minWeight: 1,
+          maxWeight: 1,
+          life_span: 0,
+          breed_group: "",
+          origin: "",
+          img: "",
+          temperament: [],
+        });
+      }
 
   useEffect(() => {
     dispatch(getTemperaments());
@@ -136,13 +133,18 @@ export default function DogsCreate() {
   }, [dispatch]);
 
   return (
-    <>
-      <Link to={"/home"}>Volver</Link>
-      <div>Create Dog</div>
-      <br />
-      <form onSubmit={(e) => handleSubmit(e)}>
+    <div className={s.backCreate}>
+      <nav className={s.wrapper}>
+        <NavLink style={{ height: "56px", marginTop: "20px" }} to={"/home"}>
+          BACK
+        </NavLink>
+      </nav>
+    
+      <div className={st.box .texContainer}>
+     <div className={st.formContainer}>
+      <form  onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <label>Name*</label>
+          <label className={st.title}>Name*
           <input
             id="name"
             type={"text"}
@@ -153,9 +155,10 @@ export default function DogsCreate() {
           />
           <p style={{ visibility: isError.name ? "visible" : "hidden" }}>
             {isError.name}
-          </p>
-          <label>Origen</label>
+          </p></label>
+          <label  className={st.title}>Origen
           <select
+          className={s.select}
             id="country"
             name={"origin"}
             onChange={(e) => handleSelectOrigen(e)}
@@ -469,11 +472,11 @@ export default function DogsCreate() {
             <option value="Yemen">Yemen</option>
             <option value="Zambia">Zambia</option>
             <option value="Zimbabwe">Zimbabwe</option>
-          </select>
+          </select></label>
         </div>
         <div>
-          <label>Height*</label>
-          <br />
+          <label  className={st.title}>Height*
+     
           <h5>Max</h5>
           <input
             id="maxHeight"
@@ -497,13 +500,13 @@ export default function DogsCreate() {
           />
           <p style={{ visibility: isError.minHeight ? "visible" : "hidden" }}>
             {isError.minHeight}
-          </p>
+          </p></label>
         </div>
         <div>
+        <br />
+          <label  className={st.title}>Weight*
+     
           <br />
-          <label>Weight*</label>
-          <br />
-
           <h5>Max</h5>
           <input
             id="maxWeight"
@@ -527,60 +530,63 @@ export default function DogsCreate() {
           <p style={{ visibility: isError.minWeight ? "visible" : "hidden" }}>
             {isError.minWeight}
           </p>
-          <br />
-          <label>Life Span</label>
-          <br />
+          </label>
+          <label  className={st.title}>Life Span...
+    
           <input
             type={"number"}
             value={input.life_span}
             name={"life_span"}
             onChange={(e) => handleOnChange(e)}
-          />
-          <br />
-          <label>breed_group</label>
-          <br />
+          /></label>
+          <label  className={st.title}>Breed Group...
           <input
             type={"text"}
             value={input.breed_group}
             name={"breed_group"}
             placeholder={"Enter a Breed"}
             onChange={(e) => handleOnChange(e)}
-          />
-          <br />
-          <label>Imagen</label>
-          <br />
+          /></label>
+       
+          <label  className={st.title}>Imagen...
+      
           <input
             type={"URL"}
             value={input.img}
             name={"image"}
+            placeholder={"Enter a url image"}
             onChange={(e) => handleOnChange(e)}
-          />
-          <br />
-          <label>temperaments</label>
-          <br />
-          <select onChange={(e) => handleSelect(e)}>
+          /></label>
+      
+          <label  className={st.title}>temperaments
+      <div  className={s.select}>
+          <select   onChange={(e) => handleSelect(e)}>
             <option disabled selected>
-              Select temperaments
+              Select temp...
             </option>
             {temperamentsDB &&
               temperamentsDB.map((t) => {
                 return <option value={t.name}>{t.name}</option>;
               })}
           </select>
-          {input.temperament.map((t) => (
-            <div>
-              <p>{t}</p>
-              <button onClick={() => handleRemove(t)}>x</button>
-            </div>
-          ))}
-        </div>
-        <button
-          disabled={!input.name || Object.keys(isError).length > 0}
+          </div>
+          </label>
+          <h3 className={st.subtitle}>
+          {input.temperament.map((t) => 
+              <div className={st.select}>{t}
+              <button onClick={() => handleRemove(t)}>x </button></div>
+              )} 
+              </h3>
+              <button className={st.select}
+              disabled={!input.name || Object.keys(isError).length > 0}
           onSubmit={handleSubmit}
         >
           Enviar
         </button>
-      </form>
-    </>
+        </div>
+       
+      </form>   </div>
+      </div>
+    </div>
   );
 }

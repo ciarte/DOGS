@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NotFound } from "../../Components/NotFound/NotFound";
 
 export const GET_DOGS = "GET_DOGS";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
@@ -9,8 +10,8 @@ export const FILTER_DOG = "FILTER_DOG";
 export const FILTER_DOG_CREATED = "FILTER_DOG_CREATED";
 export const FILTER_ALFABETIC = "FILTER_ALFABETIC";
 export const BY_NAME = "BY_NAME";
-export const BY_WEIGHT= "BY_WEIGHT";
-export const GET_TEMP_ORIGIN= "GET_TEMP_ORIGIN";
+export const BY_WEIGHT = "BY_WEIGHT";
+export const GET_TEMP_ORIGIN = "GET_TEMP_ORIGIN";
 
 export function getDogs() {
   return async function (dispatch) {
@@ -37,7 +38,8 @@ export function createDogs(payload) {
         "http://localhost:3001/dogs/",
         payload
       );
-      return newDog;
+      console.log(newDog)
+      alert(`The dog $(newDog.name) its ready`);
     } catch (error) {
       const message = error.response
         ? error.response.data
@@ -45,10 +47,11 @@ export function createDogs(payload) {
           : error.response.data
         : error.message;
       console.log(message);
-      return message;
+      alert(message);
     }
   };
 }
+
 export function getDetails(id) {
   return async function (dispatch) {
     let json = await axios.get(`http://localhost:3001/dogs/${id}`);
@@ -58,13 +61,23 @@ export function getDetails(id) {
     });
   };
 }
-export function filterTempsPlace(payload){
+export function filterTempsPlace(payload) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/temperaments/search?temperament=${payload.temp}&place=${payload.origin}`);
-    return dispatch({
-      type: GET_TEMP_ORIGIN,
-      payload: json.data,
-    });
+    try {
+      let json = await axios.get(
+        `http://localhost:3001/temperaments/search?temperament=${payload.temp}&place=${payload.origin}`
+      );console.log(json)
+      if(json.data.length){
+      return dispatch({
+        type: GET_TEMP_ORIGIN,
+        payload: json.data,
+      })}else{
+        alert(`Dogs not found, try another filter`);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      alert(`Dogs not found, try another filter`);
+    }
   };
 }
 
@@ -103,6 +116,7 @@ export function filterByName(payload) {
       });
     } catch (error) {
       console.log(error.response.data);
+      alert(`Dog not found, try another name`);
     }
   };
 }

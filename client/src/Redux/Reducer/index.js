@@ -15,7 +15,8 @@ const initialState = {
   dogs: [],
   details: [],
   temperaments: [],
-  dogsE:[]
+  dogsE:[],
+  loading:true
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -24,7 +25,8 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         // dogs: action.payload,     
-        dogsE: action.payload
+        dogsE: action.payload,
+        loading:false
       };
     case GET_TEMPERAMENTS:
       return {
@@ -45,6 +47,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         dogsE: action.payload,
         dogs: action.payload,
+        loading:false
       };
     // case FILTER_DOG:
     //   const allDogs = state.dogsNames;
@@ -93,7 +96,6 @@ export default function rootReducer(state = initialState, action) {
           : DogsWeight.sort(function (a, b) {
               return b.maxWeight - a.maxWeight;
             });
-            console.log(byWeight)
       return {
         ...state,
         dogsE: byWeight,
@@ -103,6 +105,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         dogsE: action.payload,
         dogs: action.payload,
+        loading:false
       };
     default:
       return {

@@ -65,6 +65,7 @@ const addDog = async ({
   breed_group,
   image,
   temperament,
+  origin
 }) => {
   name = (name.charAt(0).toUpperCase() + name.slice(1)).trim();
   const newDog = await Dog.create({
@@ -76,6 +77,7 @@ const addDog = async ({
     life_span,
     breed_group,
     image,
+    origin
   });
   if (temperament) {
     temperament.map(async (t) => {
@@ -102,6 +104,7 @@ const postDogs = async (req, res) => {
     breed_group,
     temnperament,
     image,
+    origin
   } = req.body;
   if (!name || !minHeight || !maxHeight || !minWeight || !maxWeight) {
     res.status(400).send("Complete all required fields");

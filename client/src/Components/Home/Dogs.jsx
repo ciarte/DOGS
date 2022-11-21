@@ -3,17 +3,18 @@ import DogsList from "../DogList/DogList";
 import {
   getDogs,
   getTemperaments,
-  filterAtoZ,
 } from "../../Redux/Actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../Pages/index.jsx";
 import NavBar from "../NavBar/NavBar";
 import s from './Dogs.module.css'
+import Loading from "../LoadingPage/Loading";
+import { NotFound } from "../NotFound/NotFound";
 
 export function Dogs() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogsE);
- 
+ const loading = useSelector((state)=> state.loading)
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(8);
@@ -31,20 +32,25 @@ export function Dogs() {
   }, [dispatch]);
 
   return (
-    <div style={{backgroundColor:'#f9c74f'}}>
+    <>
+     {loading?
+     (<Loading/>):
+       <div style={{backgroundColor:'#f9c74f'}}>
       <header>
         <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder}  />
-      </header>    
+      </header> 
+      <br/>
       <div className={s.background}>
+        <br/>
       <Pagination
         nPage={nPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
-      />
-      {currentDogs.length?
+        />
+      
        <div className={s.container}> 
        {currentDogs.map((d) => (
-          <div >
+         <div >
             <DogsList
               id={d.id}
               name={d.name}
@@ -54,8 +60,8 @@ export function Dogs() {
               temperament={d.temperament}
             />
           </div>))}
-          </div>: <h1>NoSE encontsoh</h1>
-        }</div>
+          </div>
+        </div>
  <Pagination
       nPage={nPage}
       setCurrentPage={setCurrentPage}
@@ -66,6 +72,6 @@ export function Dogs() {
       maxPageLimit={maxPageLimit}
       setOrder={setOrder}
     /></div>
-
+       }</>
   );
 }

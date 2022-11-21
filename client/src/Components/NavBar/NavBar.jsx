@@ -39,12 +39,9 @@ export default function NavBar({ setCurrentPage, setOrder }) {
   return (
     <nav className={s.wrapper}>
       <>
-        <NavLink to={"/home"}>Home</NavLink>
-      </>
-      <>
         <NavLink to={"/createDogs"}>CreateDogs</NavLink>
       </>
-      <a>
+      <a href="#">
         <div>
           Temperament
           <div className={s.select}>
@@ -69,7 +66,7 @@ export default function NavBar({ setCurrentPage, setOrder }) {
           </div>
         </div>
       </a>
-      <a>
+      <a href="#">
         <div>
           Place
           <div className={s.select}>
@@ -84,18 +81,19 @@ export default function NavBar({ setCurrentPage, setOrder }) {
           </div>
         </div>
       </a>
-      <a>
+      <a  href="#">
         <ByAlfabet setCurrentPage={setCurrentPage} setOrder={setOrder} />
       </a>
-      <a>
+      <a  href="#">
         <ByName setCurrentPage={setCurrentPage} />
       </a>
-      <a>
+      <a  href="#">
         <ByWeight setCurrentPage={setCurrentPage} setOrder={setOrder} />
       </a>
-      <a>
+      <a href={'javascript:document.location.reload()'}>Reset Filters</a>
+      <>
         <NavLink to={"/"}>Landing</NavLink>
-      </a>
+      </>
     </nav>
   );
 }
