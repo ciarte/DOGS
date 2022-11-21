@@ -9,12 +9,13 @@ import Pagination from "../Pages/index.jsx";
 import NavBar from "../NavBar/NavBar";
 import s from './Dogs.module.css'
 import Loading from "../LoadingPage/Loading";
-import { NotFound } from "../NotFound/NotFound";
 
 export function Dogs() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogsE);
  const loading = useSelector((state)=> state.loading)
+
+
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(8);
@@ -34,7 +35,9 @@ export function Dogs() {
   return (
     <>
      {loading?
-     (<Loading/>):
+     (<><Loading/> <header>
+     <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder}  />
+   </header></> ):
        <div style={{backgroundColor:'#f9c74f'}}>
       <header>
         <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder}  />

@@ -13,20 +13,21 @@ import {
 
 const initialState = {
   dogs: [],
-  details: [],
+  details: {},
   temperaments: [],
   dogsE:[],
-  loading:true
+  loading:true,
+  dogDetailBackUp:{}
 };
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_DOGS:
       return {
-        ...state,
-        // dogs: action.payload,     
+        ...state,   
         dogsE: action.payload,
-        loading:false
+        loading:false,
+        details:{},
       };
     case GET_TEMPERAMENTS:
       return {
@@ -41,34 +42,16 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         details: action.payload,
+        dogDetailBackUp: action.payload
       };
     case GET_TEMP_ORIGIN:
       return {
         ...state,
         dogsE: action.payload,
         dogs: action.payload,
-        loading:false
+        loading:false,
+        details:{}
       };
-    // case FILTER_DOG:
-    //   const allDogs = state.dogsNames;
-    //   const statusFilter =
-    //     action.payload === "all"
-    //       ? allDogs
-    //       : allDogs.filter((e) => e.temperament.includes(action.payload));
-    //   return {
-    //     ...state,
-    //     dogs: statusFilter,
-    //   };
-    // case FILTER_DOG_CREATED:
-    //   const Dogs = state.dogs;
-    //   const created =
-    //     action.payload === "created"
-    //       ? Dogs.filter((e) => e.id.toString().length > 5)
-    //       : Dogs.filter((e) => e.id.toString().length < 5);
-    //   return {
-    //     ...state,
-    //     dogs: action.payload === "all" ? Dogs : created,
-    //   };
     case FILTER_ALFABETIC:
       const compare = function compare_lname(a, b) {
         if (a.name < b.name) {
@@ -104,7 +87,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         dogsE: action.payload,
-        dogs: action.payload,
+        // dogs: action.payload,
         loading:false
       };
     default:

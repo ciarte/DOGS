@@ -18,11 +18,11 @@ export function DogCard(props) {
               {props.breed_group ? <>{props.breed_group}</> : <>Wild/Unknown</>}
             </h3>
             <h3 className={s.title}>Origen: </h3>
-            {props.origin ? (
+            {props.origin ? 
               <h3 className={s.subtitle}>{props.origin}</h3>
-            ) : (
+            : 
               <h3 className={s.subtitle}>Unknown</h3>
-            )}
+            }
             <h3 className={s.title}>
               Weight:
               {props.minWeight ? (

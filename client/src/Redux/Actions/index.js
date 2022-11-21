@@ -1,5 +1,4 @@
 import axios from "axios";
-import { NotFound } from "../../Components/NotFound/NotFound";
 
 export const GET_DOGS = "GET_DOGS";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
@@ -19,6 +18,7 @@ export function getDogs() {
     return dispatch({
       type: GET_DOGS,
       payload: json.data,
+  
     });
   };
 }
@@ -38,15 +38,13 @@ export function createDogs(payload) {
         "http://localhost:3001/dogs/",
         payload
       );
-      console.log(newDog)
-      alert(`The dog $(newDog.name) its ready`);
+      alert(`Your dog: ${newDog.name} its ready`);  
     } catch (error) {
       const message = error.response
         ? error.response.data
           ? `The name "${payload.name}" already exists!`
           : error.response.data
         : error.message;
-      console.log(message);
       alert(message);
     }
   };

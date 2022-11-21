@@ -13,7 +13,7 @@ export function DogDetail(props) {
   const dogDetail = useSelector((state) => state.details);
   console.log(dogDetail);
   React.useEffect(() => {
-    dispatch(getDetails(idDog))
+    dispatch(getDetails(idDog));
   }, [dispatch, idDog]);
   return (
     <div className={s.back}>
@@ -35,7 +35,9 @@ export function DogDetail(props) {
           height: "48.5em",
         }}
       >
-        {dogDetail ? (
+        {!dogDetail.id ? (
+          <Loading />
+        ) : (
           <div>
             <DogCard
               id={dogDetail.id}
@@ -51,8 +53,6 @@ export function DogDetail(props) {
               temperament={dogDetail.temperament}
             />
           </div>
-        ) : (
-          <Loading />
         )}
       </div>
     </div>
