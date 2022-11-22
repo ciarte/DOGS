@@ -18,13 +18,12 @@ export function getDogs() {
     return dispatch({
       type: GET_DOGS,
       payload: json.data,
-  
     });
   };
 }
 export function getTemperaments() {
   return async function (dispatch) {
-    let json = await axios.get(`/temperaments`);
+    let json = await axios.get("/temperaments");
     return dispatch({
       type: GET_TEMPERAMENTS,
       payload: json.data,
@@ -34,11 +33,8 @@ export function getTemperaments() {
 export function createDogs(payload) {
   return async function (dispatch) {
     try {
-      let { data: newDog } = await axios.post(
-        "/dogs/",
-        payload
-      );
-      alert(`Your dog: ${newDog.name} its ready`);  
+      let { data: newDog } = await axios.post("/dogs/", payload);
+      alert(`Your dog: ${newDog.name} its ready`);
     } catch (error) {
       const message = error.response
         ? error.response.data
@@ -64,12 +60,14 @@ export function filterTempsPlace(payload) {
     try {
       let json = await axios.get(
         `/temperaments/search?temperament=${payload.temp}&place=${payload.origin}`
-      );console.log(json)
-      if(json.data.length){
-      return dispatch({
-        type: GET_TEMP_ORIGIN,
-        payload: json.data,
-      })}else{
+      );
+      console.log(json);
+      if (json.data.length) {
+        return dispatch({
+          type: GET_TEMP_ORIGIN,
+          payload: json.data,
+        });
+      } else {
         alert(`Dogs not found, try another filter`);
       }
     } catch (error) {
