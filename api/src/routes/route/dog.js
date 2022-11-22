@@ -4,9 +4,12 @@ const {
   getDogList,
   getBreed,
   postDogs,
+  getNames
 } = require("../controllers/controllersDog");
 
 router.get("/", getDogList);
+
+router.get('/detalle',getNames)
 
 router.get("/:idRaza", getBreed);
 

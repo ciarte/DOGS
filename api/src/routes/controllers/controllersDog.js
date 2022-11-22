@@ -53,7 +53,15 @@ const getBreed = async (req, res, next) => {
   }
 };
 
-
+const getNames = async (req,res,next)=>{
+  let allNames= await getApiInfo();
+  try{
+    const names = allNames.map(d=>d.name)
+    res.status(200).send({names}) 
+  }catch(error){
+next(error)
+  }
+}
 //POST adding dog
 const addDog = async ({
   name,
@@ -122,5 +130,6 @@ module.exports = {
   getDogList,
   getBreed,
   postDogs,
-  getAllInfo
+  getAllInfo,
+  getNames
 };
