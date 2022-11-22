@@ -4,7 +4,6 @@ const {
   getDogList,
   getBreed,
   postDogs,
-  getNames
 } = require("../controllers/controllersDog");
 
 router.get("/", getDogList);
