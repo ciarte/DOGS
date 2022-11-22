@@ -52,16 +52,6 @@ const getBreed = async (req, res, next) => {
     next(error);
   }
 };
-
-const getNames = async (req,res,next)=>{
-  let allNames= await getApiInfo();
-  try{
-    const names = allNames.map(d=>d.name)
-    res.status(200).send({names}) 
-  }catch(error){
-next(error)
-  }
-}
 //POST adding dog
 const addDog = async ({
   name,
@@ -73,7 +63,7 @@ const addDog = async ({
   breed_group,
   image,
   temperament,
-  origin
+  origin,
 }) => {
   name = (name.charAt(0).toUpperCase() + name.slice(1)).trim();
   const newDog = await Dog.create({
@@ -85,7 +75,7 @@ const addDog = async ({
     life_span,
     breed_group,
     image,
-    origin
+    origin,
   });
   if (temperament) {
     temperament.map(async (t) => {
@@ -100,7 +90,6 @@ const addDog = async ({
   }
   return newDog;
 };
-
 const postDogs = async (req, res) => {
   const {
     name,
@@ -112,7 +101,7 @@ const postDogs = async (req, res) => {
     breed_group,
     temnperament,
     image,
-    origin
+    origin,
   } = req.body;
   if (!name || !minHeight || !maxHeight || !minWeight || !maxWeight) {
     res.status(400).send("Complete all required fields");
@@ -124,12 +113,10 @@ const postDogs = async (req, res) => {
     res.status(400).json({ message: "Name already exist", error });
   }
 };
-
-
 module.exports = {
   getDogList,
   getBreed,
   postDogs,
   getAllInfo,
-  getNames
+  getNames,
 };

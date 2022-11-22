@@ -9,8 +9,6 @@ const {
 
 router.get("/", getDogList);
 
-router.get('/detalle',getNames)
-
 router.get("/:idRaza", getBreed);
 
 router.post("/", postDogs);

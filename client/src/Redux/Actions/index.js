@@ -14,7 +14,7 @@ export const GET_TEMP_ORIGIN = "GET_TEMP_ORIGIN";
 
 export function getDogs() {
   return async function (dispatch) {
-    let json = await axios.get("http://localhost:3001/dogs");
+    let json = await axios.get("/dogs");
     return dispatch({
       type: GET_DOGS,
       payload: json.data,
@@ -24,7 +24,7 @@ export function getDogs() {
 }
 export function getTemperaments() {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/temperaments`);
+    let json = await axios.get(`/temperaments`);
     return dispatch({
       type: GET_TEMPERAMENTS,
       payload: json.data,
@@ -35,7 +35,7 @@ export function createDogs(payload) {
   return async function (dispatch) {
     try {
       let { data: newDog } = await axios.post(
-        "http://localhost:3001/dogs/",
+        "/dogs/",
         payload
       );
       alert(`Your dog: ${newDog.name} its ready`);  
@@ -52,7 +52,7 @@ export function createDogs(payload) {
 
 export function getDetails(id) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/dogs/${id}`);
+    let json = await axios.get(`/dogs/${id}`);
     return dispatch({
       type: DOG_DETAIL,
       payload: json.data,
@@ -63,7 +63,7 @@ export function filterTempsPlace(payload) {
   return async function (dispatch) {
     try {
       let json = await axios.get(
-        `http://localhost:3001/temperaments/search?temperament=${payload.temp}&place=${payload.origin}`
+        `/temperaments/search?temperament=${payload.temp}&place=${payload.origin}`
       );console.log(json)
       if(json.data.length){
       return dispatch({
@@ -107,7 +107,7 @@ export function filterAtoZ(payload) {
 export function filterByName(payload) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(`http://localhost:3001/dogs?name=${payload}`);
+      let json = await axios.get(`/dogs?name=${payload}`);
       return dispatch({
         type: BY_NAME,
         payload: json.data,
