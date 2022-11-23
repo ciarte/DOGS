@@ -50,7 +50,7 @@ if(minPageLimit >=1){
               <>{p}</>
             </button>
           );
-        } return 
+        } //eslint-disable-next-line
       }): <button className={s.select}>{currentPage+' / '+nPage}</button>}
       <div className={s.hellip}>{pageIncrementEllipses}</div>
       <button className={s.select} onClick={nexPage} disabled={currentPage === pages[pages.length - 1]}>
