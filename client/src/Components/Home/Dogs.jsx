@@ -23,7 +23,7 @@ export function Dogs() {
   const firstDogInPage = lastDogInPage - pageSize;
   const currentDogs =allDogs.slice(firstDogInPage, lastDogInPage);
   const nPage = Math.ceil(allDogs.length / pageSize);
-  const [order, setOrder] = useState("");
+  const [ setOrder] = useState("");
   const [maxPageLimit, setMaxPageLimit] = useState(25);
   const [minPageLimit, setMinPageLimit] = useState(0);
   useEffect(() => {
