@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a42cadaa.chunk.css",
+    "main.js": "/static/js/main.42fb1d3a.chunk.js",
+    "main.js.map": "/static/js/main.42fb1d3a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.61f7524e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.61f7524e.js.map",
+    "static/js/2.21049d75.chunk.js": "/static/js/2.21049d75.chunk.js",
+    "static/js/2.21049d75.chunk.js.map": "/static/js/2.21049d75.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.a42cadaa.chunk.css.map": "/static/css/main.a42cadaa.chunk.css.map",
+    "static/js/2.21049d75.chunk.js.LICENSE.txt": "/static/js/2.21049d75.chunk.js.LICENSE.txt",
+    "static/media/landingPage.module.css": "/static/media/Landing.fd8e9a21.jpg",
+    "static/media/Dogs.module.css": "/static/media/NationalGeographic_2731043_4x3..9181ead0.webp",
+    "static/media/dribble_error-dog.47190f4b.gif": "/static/media/dribble_error-dog.47190f4b.gif",
+    "static/media/navBar.module.css": "/static/media/pop_culter_dog_rank_alyceatinoyan_feature.13a3b996.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.61f7524e.js",
+    "static/js/2.21049d75.chunk.js",
+    "static/css/main.a42cadaa.chunk.css",
+    "static/js/main.42fb1d3a.chunk.js"
+  ]
+}
