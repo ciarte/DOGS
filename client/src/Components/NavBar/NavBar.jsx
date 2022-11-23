@@ -38,10 +38,10 @@ export default function NavBar({ setCurrentPage, setOrder }) {
   }
   return (
     <nav className={s.wrapper}>
-      <>
+      <a>
         <NavLink to={"/createDogs"}>CreateDogs</NavLink>
-      </>
-      <>
+      </a>
+      <a>
         <div>
           Temperament
           <div className={s.select}>
@@ -65,8 +65,8 @@ export default function NavBar({ setCurrentPage, setOrder }) {
             </select>
           </div>
         </div>
-      </>
-      <>
+      </a>
+      <a>
         <div>
           Place
           <div className={s.select}>
@@ -80,16 +80,16 @@ export default function NavBar({ setCurrentPage, setOrder }) {
             </select>
           </div>
         </div>
-      </>
-      < >
+      </a>
+      < a>
         <ByAlfabet setCurrentPage={setCurrentPage} setOrder={setOrder} />
-      </>
-      <>
+      </a>
+      <a>
         <ByName setCurrentPage={setCurrentPage} />
-      </>
-      < >
+      </a>
+      <a >
         <ByWeight setCurrentPage={setCurrentPage} setOrder={setOrder} />
-      </>
+      </a>
       <>
         <NavLink to={"/"}>Landing</NavLink>
       </>
