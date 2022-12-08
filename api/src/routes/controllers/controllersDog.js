@@ -1,5 +1,4 @@
 const { Dog, Temperament } = require("../../db");
-const axios = require("axios");
 const { getDbInfo, getApiInfo } = require("./controllersCalls");
 
 function compare_lname(a, b) {
@@ -119,3 +118,4 @@ module.exports = {
   postDogs,
   getAllInfo,
 };
+
