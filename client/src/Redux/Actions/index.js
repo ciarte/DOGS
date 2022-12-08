@@ -12,6 +12,9 @@ export const BY_NAME = "BY_NAME";
 export const BY_WEIGHT = "BY_WEIGHT";
 export const GET_TEMP_ORIGIN = "GET_TEMP_ORIGIN";
 
+// axios.defaults.baseURL= "http://localhost:3002";
+axios.defaults.baseURL = "https://pi-dogs-back-production-d914.up.railway.app/";
+
 export function getDogs() {
   return async function (dispatch) {
     let json = await axios.get("/dogs");
